@@ -13,8 +13,8 @@ Ce logiciel utilise Rathole ([Lien](https://github.com/rapiz1/rathole)) ainsi qu
 ## Si vous êtes GM :
 
 | :exclamation: | Je sais qu'actuellement un fichier appeler rathole_odysshey.exe est detecté par AVG Antivirus.                     |
-|               | Il ne sagit que d'un avertissement mais il prefère le supprimer, il faut donc ajouter une exeption sur le fichier. |
 |:--------------|--------------------------------------------------------------------------------------------------------------------|
+|               | Il ne sagit que d'un avertissement mais il prefère le supprimer, il faut donc ajouter une exeption sur le fichier. |
 
 Vous avez déja un serveur, il vous suffit de partager le fichier de configuration avec les joueurs et tout devrait fonctionner.
 
