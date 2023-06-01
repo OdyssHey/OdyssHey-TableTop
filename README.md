@@ -72,7 +72,7 @@ Et voici l'un des fichiers de configuration (car on a 2 serveur, ici, c'est pour
 |----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 
-Petit VPS qui permet de faire tourner 4/5 serveur pour 1.20€, [ICI](https://www.ionos.fr/serveurs/vps#packages). (*Je n'ai aucune affiliation avec cette marque, je partage juste un bon plan.*)
+Petit VPS qui permet de faire tourner 3/4 serveur pour 1.20€, [ICI](https://www.ionos.fr/serveurs/vps#packages). (*Je n'ai aucune affiliation avec cette marque, je partage juste un bon plan.*)
 
 ---
 
