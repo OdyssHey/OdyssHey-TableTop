@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdenguvei58nr"]
+
+[ext_resource type="Script" path="res://Main/User/Profile.gd" id="1_58lat"]
+
+[node name="Profile" type="PanelContainer"]
+offset_right = 54.0
+offset_bottom = 25.0
+script = ExtResource("1_58lat")
+metadata/peer_id = 0
+
+[node name="User_name" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 15
+text = "  User 1"
+
+[node name="User_kick" type="Button" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 15
+text = "  Exclure  "
+
+[connection signal="pressed" from="User_kick" to="." method="_on_user_kick_pressed"]

@@ -1,0 +1,13 @@
+{
+  "serverRathole": {
+	"ip": "",
+	"UDPport": 0,
+	"clientPort": 0,
+	"token": "",
+	"serviceName": ""
+  },
+  "hosting": {
+	"maxConnections": 0,
+	"openPort": 0
+  }
+}
