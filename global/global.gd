@@ -14,8 +14,13 @@ var max_player:int = 0
 var host_port:int = 0
 
 
-# Variable globale
+# Variable sys
 var ratholePID = 0
+var peer
+
+#Variable Tmp
+var partie:String = "grp1"
+
 
 var pseudo:String = ""
 

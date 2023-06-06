@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bypn70ns0vjnl"]
+[gd_scene load_steps=7 format=3 uid="uid://bypn70ns0vjnl"]
 
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_mf5fe"]
 [ext_resource type="Texture2D" uid="uid://d0oelqrmaf2b6" path="res://ressource/background.png" id="2_6smgt"]
+[ext_resource type="Script" path="res://Main/VTT.gd" id="3_v8wt0"]
+[ext_resource type="Texture2D" uid="uid://brrwr4b0dvnjx" path="res://ressource/vtt_default.png" id="3_vayn2"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_30cuy"]
 device = -1
@@ -14,6 +16,7 @@ events = [SubResource("InputEventKey_30cuy")]
 script = ExtResource("1_mf5fe")
 
 [node name="Lobby" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,9 +24,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Lobby"]
+[node name="LobbyLayer" type="CanvasLayer" parent="Lobby"]
 
-[node name="MainMenu" type="PanelContainer" parent="Lobby/CanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="Lobby/LobbyLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6smgt")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="MainMenu" type="PanelContainer" parent="Lobby/LobbyLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -38,37 +51,79 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="Lobby/CanvasLayer/MainMenu"]
+[node name="MarginContainer" type="MarginContainer" parent="Lobby/LobbyLayer/MainMenu"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Lobby/CanvasLayer/MainMenu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Lobby/LobbyLayer/MainMenu/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Lobby/CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Lobby/LobbyLayer/MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="Button" type="Button" parent="Lobby/CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="Lobby/LobbyLayer/MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 shortcut = SubResource("Shortcut_bpwxd")
 text = "Démarrer la partie."
 
-[node name="TextureRect" type="TextureRect" parent="Lobby"]
-layout_mode = 1
+[node name="VTT" type="Node2D" parent="."]
+visible = false
+script = ExtResource("3_v8wt0")
+
+[node name="VTTLayer" type="CanvasLayer" parent="VTT"]
+visible = false
+
+[node name="map" type="TextureRect" parent="VTT/VTTLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_6smgt")
-expand_mode = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_vayn2")
+expand_mode = 2
+stretch_mode = 5
 
-[node name="VTT" type="Node2D" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="VTT/VTTLayer"]
+visible = false
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VTT/VTTLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VTT/VTTLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VTT/VTTLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Paramètres :"
+horizontal_alignment = 1
+
+[node name="Importmap" type="Button" parent="VTT/VTTLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Importer une carte"
+
+[node name="NativeFileDialog" type="NativeFileDialog" parent="VTT/VTTLayer/PanelContainer/MarginContainer/VBoxContainer/Importmap"]
+title = "Open a File"
+file_mode = 0
+access = 2
+
+[connection signal="pressed" from="Lobby/LobbyLayer/MainMenu/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VTT/VTTLayer/PanelContainer/MarginContainer/VBoxContainer/Importmap" to="VTT" method="_on_importmap_pressed"]

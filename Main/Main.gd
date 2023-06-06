@@ -10,7 +10,7 @@ func _ready():
 	multiplayer.connection_failed.connect(_connected_fail)
 	multiplayer.server_disconnected.connect(_server_disconnected)
 	if !multiplayer.is_server():
-		$Lobby/CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Button.set_disabled(true)
+		$Lobby/LobbyLayer/MainMenu/MarginContainer/VBoxContainer/Button.set_disabled(true)
 	update_list_player(var_to_str(Global.liste_joueur))
 
 func _player_connected(_id):
@@ -45,7 +45,7 @@ func register_player(info):
 @rpc("call_local")
 func update_list_player(list):
 	var List = str_to_var(list)
-	for elem in $Lobby/CanvasLayer/MainMenu/MarginContainer/VBoxContainer/VBoxContainer.get_children():
+	for elem in $Lobby/LobbyLayer/MainMenu/MarginContainer/VBoxContainer/VBoxContainer.get_children():
 		elem.queue_free()
 	for elem in List:
 		var user = Profile.instantiate()
@@ -55,7 +55,7 @@ func update_list_player(list):
 		if multiplayer.is_server():
 			if user.get("metadata/peer_id") != 1:
 				user.get_child(1).show()
-		$Lobby/CanvasLayer/MainMenu/MarginContainer/VBoxContainer/VBoxContainer.add_child(user)
+		$Lobby/LobbyLayer/MainMenu/MarginContainer/VBoxContainer/VBoxContainer.add_child(user)
 	
 
 func kickplayer(id:int):
@@ -71,3 +71,18 @@ func get_kicked():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
+
+
+func _on_button_pressed():
+	if Global.liste_joueur.size() < 2:
+		OS.alert("Il vous faut au moins 2 joueurs pour commencer la partie.")
+		return
+	$VTT/VTTLayer/PanelContainer.show()
+	Global.peer.set_refuse_new_connections(false)
+	rpc("display_vtt")
+	
+	
+@rpc("call_local")
+func display_vtt():
+	$Lobby/LobbyLayer.hide()
+	$VTT/VTTLayer.show()

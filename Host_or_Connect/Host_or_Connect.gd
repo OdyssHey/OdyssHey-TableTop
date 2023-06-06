@@ -28,9 +28,9 @@ func _on_host_pressed():
 		OS.alert("Veuillez entrer un pseudo","Pseudo !")
 		return
 	$CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/Host.set_disabled(true)
-	var peer = ENetMultiplayerPeer.new()
-	peer.create_server(Global.host_port, Global.max_player)
-	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
+	Global.peer = ENetMultiplayerPeer.new()
+	Global.peer.create_server(Global.host_port, Global.max_player)
+	if Global.peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		OS.alert("Le server n'as pas pu  démarrer.")
 		var error_message = NativeNotification.new()
 		error_message.notification_text = "Le server n'as pas pu démarrer."
@@ -39,7 +39,7 @@ func _on_host_pressed():
 		error_message.send()
 		$CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/Host.set_disabled(false)
 		return
-	multiplayer.multiplayer_peer = peer
+	multiplayer.multiplayer_peer = Global.peer
 	#Start rathole
 	var configRatholeFile = FileAccess.open("user://client.toml", FileAccess.WRITE)
 	configRatholeFile.store_string("[client]\nremote_addr = \""+ Global.server_adress +":"+ str(Global.server_accept_port) +"\"\n[client.services."+ Global.server_service_name +"]\ntype = \"udp\"\ntoken = \""+ Global.server_token +"\"\nlocal_addr = \"127.0.0.1:"+ str(Global.host_port) + "\"")
@@ -74,9 +74,9 @@ func _on_join_pressed():
 		OS.alert("Veuillez entrer un pseudo","Pseudo !")
 		return
 	$CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/Join.set_disabled(true)
-	var peer = ENetMultiplayerPeer.new()
-	peer.create_client(Global.server_adress,Global.server_port)
-	multiplayer.multiplayer_peer = peer
+	Global.peer = ENetMultiplayerPeer.new()
+	Global.peer.create_client(Global.server_adress,Global.server_port)
+	multiplayer.multiplayer_peer = Global.peer
 	
 	_go_to_lobby()
 
