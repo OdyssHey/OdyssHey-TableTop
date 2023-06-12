@@ -18,3 +18,31 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://global/global.gd"
+
+[gui]
+
+fonts/dynamic_fonts/use_oversampling=false
+
+[importer_defaults]
+
+font_data_dynamic={
+"compress": false
+}
+
+[input]
+
+ZoomInCam={
+"deadzone": 0.0,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":4,"pressed":false,"double_click":false,"script":null)
+]
+}
+ZoomOutCam={
+"deadzone": 0.0,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":5,"pressed":false,"double_click":false,"script":null)
+]
+}
+DragMap={
+"deadzone": 0.0,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(278, 20),"global_position":Vector2(282, 63),"factor":1.0,"button_index":1,"pressed":true,"double_click":false,"script":null)
+]
+}

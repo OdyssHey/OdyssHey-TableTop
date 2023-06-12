@@ -23,6 +23,8 @@ var partie:String = "grp1"
 
 
 var pseudo:String = ""
+var liste_joueur:Array[User] = []
+var used_rand = RandomNumberGenerator.new()
 
 @rpc("any_peer","call_local")
 func get_user_from_ID(id:int):
@@ -38,8 +40,6 @@ func remove_user_from_ID(id:int):
 			liste_joueur.remove_at(i)
 			return liste_joueur
 	return liste_joueur
-
-var liste_joueur:Array[User] = []
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

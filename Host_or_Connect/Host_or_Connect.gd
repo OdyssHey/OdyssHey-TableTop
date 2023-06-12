@@ -1,5 +1,6 @@
 extends Control
 
+var Lobby = preload("res://Lobby/Lobby.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -88,7 +89,7 @@ func _go_to_lobby():
 		Global.liste_joueur.append(register_user)
 	$CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/Host.set_disabled(false)
 	$CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/Join.set_disabled(false)
-	get_tree().change_scene_to_file("res://Main/Main.tscn")
+	get_tree().change_scene_to_packed(Lobby)
 
 	#On envoie le pseudo
 var http
@@ -133,7 +134,7 @@ func _http_request_completed(result, _response_code, _headers, _body):
 
 func _on_import_config_pressed():
 	$MarginContainer/import_config.set_disabled(true)
-	$NativeFileDialog.add_filter("*.json","*.json")
+	$NativeFileDialog.add_filter("*.json",".json")
 	$NativeFileDialog.show()
 	$NativeFileDialog.connect("file_selected", on_file_selected)
 	pass # Replace with function body.

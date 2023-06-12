@@ -1,6 +1,7 @@
-extends Node
+extends Control  
 
-var Profile = preload("res://Main/User/Profile.tscn")
+var Profile = preload("res://Lobby/User/Profile.tscn")
+var VTT = preload("res://VTT/VTT.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,7 +11,7 @@ func _ready():
 	multiplayer.connection_failed.connect(_connected_fail)
 	multiplayer.server_disconnected.connect(_server_disconnected)
 	if !multiplayer.is_server():
-		$Lobby/LobbyLayer/MainMenu/MarginContainer/VBoxContainer/Button.set_disabled(true)
+		$LobbyLayer/MainMenu/MarginContainer/VBoxContainer/Button.set_disabled(true)
 	update_list_player(var_to_str(Global.liste_joueur))
 
 func _player_connected(_id):
@@ -45,7 +46,7 @@ func register_player(info):
 @rpc("call_local")
 func update_list_player(list):
 	var List = str_to_var(list)
-	for elem in $Lobby/LobbyLayer/MainMenu/MarginContainer/VBoxContainer/VBoxContainer.get_children():
+	for elem in $LobbyLayer/MainMenu/MarginContainer/VBoxContainer/VBoxContainer.get_children():
 		elem.queue_free()
 	for elem in List:
 		var user = Profile.instantiate()
@@ -55,7 +56,7 @@ func update_list_player(list):
 		if multiplayer.is_server():
 			if user.get("metadata/peer_id") != 1:
 				user.get_child(1).show()
-		$Lobby/LobbyLayer/MainMenu/MarginContainer/VBoxContainer/VBoxContainer.add_child(user)
+		$LobbyLayer/MainMenu/MarginContainer/VBoxContainer/VBoxContainer.add_child(user)
 	
 
 func kickplayer(id:int):
@@ -77,12 +78,12 @@ func _on_button_pressed():
 	if Global.liste_joueur.size() < 2:
 		OS.alert("Il vous faut au moins 2 joueurs pour commencer la partie.")
 		return
-	$VTT/VTTLayer/PanelContainer.show()
-	Global.peer.set_refuse_new_connections(false)
-	rpc("display_vtt")
+	Global.peer.set_refuse_new_connections(true)
+	
+	rpc("display_vtt", Time.get_ticks_usec())
 	
 	
 @rpc("call_local")
-func display_vtt():
-	$Lobby/LobbyLayer.hide()
-	$VTT/VTTLayer.show()
+func display_vtt(seedForRand):
+	Global.used_rand.seed = seedForRand
+	get_tree().change_scene_to_packed(VTT)

@@ -1,0 +1,159 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs4t2mwbku1xe"]
+
+[ext_resource type="Script" path="res://Dice/dice.gd" id="1_s8elb"]
+[ext_resource type="Texture2D" uid="uid://batcrb6q66poa" path="res://ressource/dice_bg.png" id="1_thfd4"]
+[ext_resource type="FontFile" uid="uid://67je3g8i6lvc" path="res://ressource/MyFont-Regular.otf" id="2_ypjxo"]
+
+[node name="dice" type="Node2D"]
+script = ExtResource("1_s8elb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.028, 0.028)
+texture = ExtResource("1_thfd4")
+centered = false
+
+[node name="U" type="Label" parent="Sprite2D"]
+visible = false
+offset_left = 1071.43
+offset_top = 1000.0
+offset_right = 3002.43
+offset_bottom = 3163.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ypjxo")
+theme_override_font_sizes/font_size = 1800
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="D1" type="Label" parent="Sprite2D"]
+visible = false
+offset_left = 964.285
+offset_top = 1035.71
+offset_right = 2252.29
+offset_bottom = 2478.71
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ypjxo")
+theme_override_font_sizes/font_size = 1100
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="D2" type="Label" parent="Sprite2D"]
+visible = false
+offset_left = 1785.71
+offset_top = 1750.0
+offset_right = 3073.71
+offset_bottom = 3193.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ypjxo")
+theme_override_font_sizes/font_size = 1100
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="C1" type="Label" parent="Sprite2D"]
+visible = false
+offset_left = 2214.29
+offset_top = 2000.0
+offset_right = 3072.29
+offset_bottom = 3083.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ypjxo")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="C2" type="Label" parent="Sprite2D"]
+visible = false
+offset_left = 1642.86
+offset_top = 1535.71
+offset_right = 2500.86
+offset_bottom = 2618.71
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ypjxo")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="C3" type="Label" parent="Sprite2D"]
+visible = false
+offset_left = 1000.0
+offset_top = 1035.71
+offset_right = 1966.0
+offset_bottom = 2118.71
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ypjxo")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="M1" type="Label" parent="Sprite2D"]
+visible = false
+offset_left = 1071.43
+offset_top = 1107.14
+offset_right = 2037.43
+offset_bottom = 2190.14
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ypjxo")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="M2" type="Label" parent="Sprite2D"]
+visible = false
+offset_left = 2035.71
+offset_top = 1107.14
+offset_right = 3001.71
+offset_bottom = 2190.14
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ypjxo")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="M3" type="Label" parent="Sprite2D"]
+visible = false
+offset_left = 1071.43
+offset_top = 2071.43
+offset_right = 2037.43
+offset_bottom = 3154.43
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ypjxo")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="M4" type="Label" parent="Sprite2D"]
+visible = false
+offset_left = 2035.7
+offset_top = 2071.44
+offset_right = 3001.7
+offset_bottom = 3154.44
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ypjxo")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1

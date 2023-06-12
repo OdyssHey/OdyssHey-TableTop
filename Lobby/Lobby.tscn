@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqwp5i3h6ug6j"]
+
+[ext_resource type="Script" path="res://Lobby/Lobby.gd" id="1_vkiyr"]
+[ext_resource type="Texture2D" uid="uid://d0oelqrmaf2b6" path="res://ressource/background.png" id="2_xq5fv"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_30cuy"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_c1f2n"]
+events = [SubResource("InputEventKey_30cuy")]
+
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vkiyr")
+
+[node name="LobbyLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="LobbyLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xq5fv")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="MainMenu" type="PanelContainer" parent="LobbyLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -221.0
+offset_top = -38.0
+offset_right = 221.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="LobbyLayer/MainMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LobbyLayer/MainMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LobbyLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Button" type="Button" parent="LobbyLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+shortcut = SubResource("Shortcut_c1f2n")
+text = "Démarrer la partie."
+
+[connection signal="pressed" from="LobbyLayer/MainMenu/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

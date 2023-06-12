@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://cdenguvei58nr"]
 
-[ext_resource type="Script" path="res://Main/User/Profile.gd" id="1_58lat"]
+[ext_resource type="Script" path="res://Lobby/User/Profile.gd" id="1_g73lf"]
 
 [node name="Profile" type="PanelContainer"]
 offset_right = 54.0
 offset_bottom = 25.0
-script = ExtResource("1_58lat")
+script = ExtResource("1_g73lf")
 metadata/peer_id = 0
 
 [node name="User_name" type="Label" parent="."]

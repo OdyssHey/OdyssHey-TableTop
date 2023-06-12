@@ -1,0 +1,110 @@
+[gd_scene load_steps=6 format=3 uid="uid://1kc8y71lm8th"]
+
+[ext_resource type="Script" path="res://VTT/VTT.gd" id="1_rycox"]
+[ext_resource type="Texture2D" uid="uid://brrwr4b0dvnjx" path="res://ressource/vtt_default.png" id="2_m1ax7"]
+[ext_resource type="Script" path="res://VTT/Camera2D.gd" id="3_5x20n"]
+[ext_resource type="Texture2D" uid="uid://cy4oyge1aeau7" path="res://ressource/dice_button.png" id="4_yafsr"]
+[ext_resource type="Texture2D" uid="uid://btodpke13nud0" path="res://ressource/dice_button_hover.png" id="5_cbl1j"]
+
+[node name="VTT" type="Node2D"]
+script = ExtResource("1_rycox")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+script = ExtResource("3_5x20n")
+
+[node name="MapLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="map" type="TextureRect" parent="MapLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_m1ax7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+visible = false
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 218.0
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Paramètres :"
+horizontal_alignment = 1
+
+[node name="Importmap" type="Button" parent="UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Importer une carte"
+
+[node name="NativeFileDialog" type="NativeFileDialog" parent="UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap"]
+title = "Open a File"
+file_mode = 0
+access = 2
+
+[node name="Hide UI" type="Button" parent="UI/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 22
+text = " < "
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -171.0
+offset_top = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 19
+
+[node name="TextureButton" type="TextureButton" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yafsr")
+texture_pressed = ExtResource("4_yafsr")
+texture_hover = ExtResource("5_cbl1j")
+texture_disabled = ExtResource("5_cbl1j")
+stretch_mode = 5
+
+[node name="ResetViewport" type="Button" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = " Réinitialiser Zoom "
+
+[connection signal="pressed" from="UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap" to="." method="_on_importmap_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/Hide UI" to="." method="_on_hide_ui_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/VBoxContainer/ResetViewport" to="Camera2D" method="_on_reset_viewport_pressed"]
