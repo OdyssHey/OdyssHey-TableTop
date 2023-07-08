@@ -1,5 +1,7 @@
 extends Node2D
 
+var dice = preload("res://Dice/Dice.tscn")
+
 func _ready():
 	$UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap/NativeFileDialog.add_filter("*.png, *.jfif, *.jpeg, *.jpg","png, jfif, jpeg, jpg")
 	$UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap/NativeFileDialog.connect("file_selected", on_file_selected)
@@ -55,4 +57,44 @@ func _on_hide_ui_pressed():
 		$UI/HBoxContainer.position.x = 0
 		is_hide = false
 		$"UI/HBoxContainer/Hide UI".text = " < "
+
+
+
+
+func _on_launch_dice_button_pressed():
+	$UI/DiceLayer.show()
+
+
+
+func _on_validate_dice_pressed():
+	$UI/DiceLayer.hide()
+	var NBDice = int($UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/NBLine.text)
+	var MaxValue = int($UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine.text)
+	$UI/PanelContainer/VBoxContainer/Button.show()
+	rpc("launch_dice",NBDice,MaxValue)
+
+
+@rpc("any_peer","call_local")
+func launch_dice(nb:int,maxVal:int):
+	if multiplayer.is_server():
+		$UI/PanelContainer/VBoxContainer/Button.show()
+	$UI/PanelContainer.show()
+	for i in range(nb):
+		$UI/PanelContainer/VBoxContainer/DiceBoxContainer.add_child(dice.instantiate())
+	var val = 0
+	for elem in $UI/PanelContainer/VBoxContainer/DiceBoxContainer.get_children():
+		val += elem.launch_dice(maxVal)
+	print(val)
+
+func _on_button_pressed():
+	rpc("closeDiceUI")
+
+@rpc("any_peer","call_local")
+func closeDiceUI():
+	for elem in $UI/PanelContainer/VBoxContainer/DiceBoxContainer.get_children():
+		elem.queue_free()
+	$UI/PanelContainer/VBoxContainer/Button.hide()
+	$UI/PanelContainer.hide()
+
+
 

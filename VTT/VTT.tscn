@@ -1,10 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://1kc8y71lm8th"]
+[gd_scene load_steps=13 format=3 uid="uid://1kc8y71lm8th"]
 
 [ext_resource type="Script" path="res://VTT/VTT.gd" id="1_rycox"]
 [ext_resource type="Texture2D" uid="uid://brrwr4b0dvnjx" path="res://ressource/vtt_default.png" id="2_m1ax7"]
 [ext_resource type="Script" path="res://VTT/Camera2D.gd" id="3_5x20n"]
 [ext_resource type="Texture2D" uid="uid://cy4oyge1aeau7" path="res://ressource/dice_button.png" id="4_yafsr"]
 [ext_resource type="Texture2D" uid="uid://btodpke13nud0" path="res://ressource/dice_button_hover.png" id="5_cbl1j"]
+[ext_resource type="Script" path="res://VTT/DiceLayer.gd" id="6_fcyrp"]
+[ext_resource type="FontFile" uid="uid://cgvak7jfhsubb" path="res://ressource/FiraCode-Retina.ttf" id="6_p4i2g"]
+[ext_resource type="Script" path="res://VTT/NBLine.gd" id="8_7gh5n"]
+[ext_resource type="Script" path="res://VTT/ValLine.gd" id="9_v3y5j"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_32v0q"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="InputEventKey" id="InputEventKey_572kt"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_hmrt3"]
+events = [SubResource("InputEventKey_32v0q"), SubResource("InputEventKey_572kt")]
 
 [node name="VTT" type="Node2D"]
 script = ExtResource("1_rycox")
@@ -31,6 +47,8 @@ stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI"]
 visible = false
+z_index = 99
+z_as_relative = false
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 218.0
@@ -92,7 +110,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_constants/separation = 19
 
-[node name="TextureButton" type="TextureButton" parent="UI/MarginContainer/VBoxContainer"]
+[node name="LaunchDiceButton" type="TextureButton" parent="UI/MarginContainer/VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("4_yafsr")
 texture_pressed = ExtResource("4_yafsr")
@@ -105,6 +123,153 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = " Réinitialiser Zoom "
 
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+visible = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+
+[node name="DiceBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Button" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+shortcut = SubResource("Shortcut_hmrt3")
+text = "Fermer"
+
+[node name="DiceLayer" type="CanvasLayer" parent="UI"]
+visible = false
+script = ExtResource("6_fcyrp")
+
+[node name="MainMenu" type="PanelContainer" parent="UI/DiceLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -221.0
+offset_top = -38.0
+offset_right = 221.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/DiceLayer/MainMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DiceLayer/MainMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 13
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lancer des dés"
+horizontal_alignment = 1
+
+[node name="VBoxNB" type="VBoxContainer" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -1
+
+[node name="NBLabel" type="Label" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Nombre de dé"
+horizontal_alignment = 1
+
+[node name="NBDice" type="HBoxContainer" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB"]
+layout_mode = 2
+alignment = 1
+
+[node name="MinusNB" type="Button" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p4i2g")
+text = " - "
+
+[node name="NBLine" type="LineEdit" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "1"
+alignment = 1
+max_length = 4
+context_menu_enabled = false
+script = ExtResource("8_7gh5n")
+
+[node name="PlusNB" type="Button" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p4i2g")
+text = " + "
+
+[node name="VBoxVal" type="VBoxContainer" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -1
+
+[node name="NBVal" type="Label" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Valeur max dé"
+horizontal_alignment = 1
+
+[node name="MaxValDice" type="HBoxContainer" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal"]
+layout_mode = 2
+alignment = 1
+
+[node name="MinusVal" type="Button" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p4i2g")
+text = " - "
+
+[node name="ValLine" type="LineEdit" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "1"
+alignment = 1
+max_length = 4
+context_menu_enabled = false
+script = ExtResource("9_v3y5j")
+
+[node name="PlusVal" type="Button" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p4i2g")
+text = " + "
+
+[node name="ValidateDice" type="Button" parent="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_hmrt3")
+text = "Valider"
+
 [connection signal="pressed" from="UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap" to="." method="_on_importmap_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/Hide UI" to="." method="_on_hide_ui_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/VBoxContainer/LaunchDiceButton" to="." method="_on_launch_dice_button_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/VBoxContainer/ResetViewport" to="Camera2D" method="_on_reset_viewport_pressed"]
+[connection signal="pressed" from="UI/PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/MinusNB" to="UI/DiceLayer" method="_on_minus_nb_pressed"]
+[connection signal="focus_exited" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/NBLine" to="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/NBLine" method="_on_focus_exited"]
+[connection signal="text_changed" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/NBLine" to="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/NBLine" method="_on_text_changed"]
+[connection signal="pressed" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/PlusNB" to="UI/DiceLayer" method="_on_plus_nb_pressed"]
+[connection signal="pressed" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice/MinusVal" to="UI/DiceLayer" method="_on_minus_val_pressed"]
+[connection signal="focus_exited" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine" to="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine" method="_on_focus_exited"]
+[connection signal="text_changed" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine" to="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine" method="_on_text_changed"]
+[connection signal="pressed" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice/PlusVal" to="UI/DiceLayer" method="_on_plus_val_pressed"]
+[connection signal="pressed" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/ValidateDice" to="." method="_on_validate_dice_pressed"]

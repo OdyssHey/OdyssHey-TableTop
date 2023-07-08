@@ -10,7 +10,6 @@ script = ExtResource("1_s8elb")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.028, 0.028)
 texture = ExtResource("1_thfd4")
-centered = false
 
 [node name="U" type="Label" parent="Sprite2D"]
 visible = false

@@ -19,7 +19,6 @@ func _process(delta):
 		if old_pos == null:
 			old_pos = get_global_mouse_position()
 		else:
-			print(old_pos, " | ", get_global_mouse_position())
 			offset += old_pos - get_global_mouse_position()
 			old_pos = get_global_mouse_position()
 	

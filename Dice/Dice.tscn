@@ -1,0 +1,180 @@
+[gd_scene load_steps=4 format=3 uid="uid://bd7ibhr3s1e54"]
+
+[ext_resource type="Texture2D" uid="uid://batcrb6q66poa" path="res://ressource/dice_bg.png" id="1_fyeh5"]
+[ext_resource type="Script" path="res://Dice/Dice.gd" id="2_iyr3t"]
+[ext_resource type="FontFile" uid="uid://67je3g8i6lvc" path="res://ressource/MyFont-Regular.otf" id="2_twgv8"]
+
+[node name="Dice" type="TextureRect"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("1_fyeh5")
+expand_mode = 1
+script = ExtResource("2_iyr3t")
+
+[node name="U" type="Label" parent="."]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 50.0
+offset_top = 48.0
+offset_right = 1981.0
+offset_bottom = 2211.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_twgv8")
+theme_override_font_sizes/font_size = 1800
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="D1" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 46.0
+offset_top = 50.0
+offset_right = 1334.01
+offset_bottom = 1493.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_twgv8")
+theme_override_font_sizes/font_size = 1100
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="D2" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 88.0
+offset_top = 83.0
+offset_right = 1376.0
+offset_bottom = 1526.0
+scale = Vector2(0.05, 0.05)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_twgv8")
+theme_override_font_sizes/font_size = 1100
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="C1" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 52.0
+offset_top = 51.6
+offset_right = 910.0
+offset_bottom = 1134.6
+scale = Vector2(0.05, 0.05)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_twgv8")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="C2" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 76.0
+offset_top = 80.0
+offset_right = 934.0
+offset_bottom = 1163.0
+scale = Vector2(0.05, 0.05)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_twgv8")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="C3" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 104.0
+offset_top = 103.0
+offset_right = 962.0
+offset_bottom = 1186.0
+scale = Vector2(0.05, 0.05)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_twgv8")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="M1" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 54.0
+offset_top = 53.0
+offset_right = 1020.0
+offset_bottom = 1136.0
+scale = Vector2(0.05, 0.05)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_twgv8")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="M2" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 54.0
+offset_top = 100.0
+offset_right = 1020.0
+offset_bottom = 1183.0
+scale = Vector2(0.05, 0.05)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_twgv8")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="M3" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 98.0
+offset_top = 53.0
+offset_right = 1064.0
+offset_bottom = 1136.0
+scale = Vector2(0.05, 0.05)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_twgv8")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="M4" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 98.0
+offset_top = 100.0
+offset_right = 1064.0
+offset_bottom = 1183.0
+scale = Vector2(0.05, 0.05)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_twgv8")
+theme_override_font_sizes/font_size = 800
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
