@@ -3,15 +3,18 @@ extends Node2D
 var dice = preload("res://Dice/Dice.tscn")
 
 func _ready():
-	$UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap/NativeFileDialog.add_filter("*.png, *.jfif, *.jpeg, *.jpg","png, jfif, jpeg, jpg")
-	$UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap/NativeFileDialog.connect("file_selected", on_file_selected)
+	$UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap/NativeFileDialog.add_filter("*.png, *.jfif, *.jpeg, *.jpg","png, jfif, jpeg, jpg")
+	$UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap/NativeFileDialog.connect("file_selected", on_file_selected)
 	if multiplayer.is_server():
-		$UI/HBoxContainer.show()
+		Global.MJ_rand = int(Time.get_datetime_string_from_system(false,true))
+		$UI/AdminBoxContainer.show()
 
 
 func _on_importmap_pressed():
-	$UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap/NativeFileDialog.show()
+	$UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap/NativeFileDialog.show()
 	pass # Replace with function body.
+
+
 
 
 func on_file_selected(path):
@@ -50,19 +53,20 @@ var is_hide = false
 
 func _on_hide_ui_pressed():
 	if !is_hide:
-		$UI/HBoxContainer.position.x = - $UI/HBoxContainer/PanelContainer.size.x
-		$"UI/HBoxContainer/Hide UI".text = " > "
+		$UI/AdminBoxContainer.position.x = - $UI/AdminBoxContainer/PanelContainer.size.x
+		$"UI/AdminBoxContainer/Hide UI".text = " > "
 		is_hide = true
 	else:
-		$UI/HBoxContainer.position.x = 0
+		$UI/AdminBoxContainer.position.x = 0
 		is_hide = false
-		$"UI/HBoxContainer/Hide UI".text = " < "
+		$"UI/AdminBoxContainer/Hide UI".text = " < "
 
 
 
 
 func _on_launch_dice_button_pressed():
 	$UI/DiceLayer.show()
+	$UI/MarginContainer/VBoxContainer/LaunchDiceButton.set_disabled(true)
 
 
 
@@ -71,20 +75,30 @@ func _on_validate_dice_pressed():
 	var NBDice = int($UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/NBLine.text)
 	var MaxValue = int($UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine.text)
 	$UI/PanelContainer/VBoxContainer/Button.show()
+	$UI/PanelContainer/VBoxContainer/Button.set_disabled(true)
 	rpc("launch_dice",NBDice,MaxValue)
+	await get_tree().create_timer(1.5).timeout
+	$UI/PanelContainer/VBoxContainer/Button.set_disabled(false)
 
 
 @rpc("any_peer","call_local")
 func launch_dice(nb:int,maxVal:int):
-	if multiplayer.is_server():
-		$UI/PanelContainer/VBoxContainer/Button.show()
+	$UI/DiceLayer.hide()
+	$UI/MarginContainer/VBoxContainer/LaunchDiceButton.set_disabled(true)
 	$UI/PanelContainer.show()
 	for i in range(nb):
 		$UI/PanelContainer/VBoxContainer/DiceBoxContainer.add_child(dice.instantiate())
 	var val = 0
+	$UI/LogUI/PanelContainer/LogText.text += Global.get_user_from_ID(multiplayer.get_remote_sender_id()).getPseudo() + " a lancé(e) un/des dé(s) : "
 	for elem in $UI/PanelContainer/VBoxContainer/DiceBoxContainer.get_children():
+		$UI/LogUI/PanelContainer/LogText.text += str(elem.launch_dice(maxVal)) + ", "
 		val += elem.launch_dice(maxVal)
-	print(val)
+	$UI/LogUI/PanelContainer/LogText.text += "pour un total de " + str(val) + "!\n"
+	if multiplayer.is_server():
+		$UI/PanelContainer/VBoxContainer/Button.show()
+		$UI/PanelContainer/VBoxContainer/Button.set_disabled(true)
+		await get_tree().create_timer(1.5).timeout
+		$UI/PanelContainer/VBoxContainer/Button.set_disabled(false)
 
 func _on_button_pressed():
 	rpc("closeDiceUI")
@@ -95,6 +109,23 @@ func closeDiceUI():
 		elem.queue_free()
 	$UI/PanelContainer/VBoxContainer/Button.hide()
 	$UI/PanelContainer.hide()
+	$UI/MarginContainer/VBoxContainer/LaunchDiceButton.set_disabled(false)
+	
+	
 
 
+func _on_admin_launch_dice_pressed():
+	if $UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer.is_visible():
+		$UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer.hide()
+	else:
+		$UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer.show()
+		
+func _process(_delta):
+	if Input.is_action_just_released("escapeMenu") && $UI/DiceLayer.is_visible():
+		$UI/DiceLayer.hide()
+		$UI/MarginContainer/VBoxContainer/LaunchDiceButton.set_disabled(false)
 
+
+func _on_admin_validate_dice_pressed():
+	
+	pass # Replace with function body.

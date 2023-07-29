@@ -25,6 +25,7 @@ var partie:String = "grp1"
 var pseudo:String = ""
 var liste_joueur:Array[User] = []
 var used_rand = RandomNumberGenerator.new()
+var MJ_rand = RandomNumberGenerator.new()
 
 @rpc("any_peer","call_local")
 func get_user_from_ID(id:int):

@@ -1,12 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://1kc8y71lm8th"]
+[gd_scene load_steps=16 format=3 uid="uid://1kc8y71lm8th"]
 
 [ext_resource type="Script" path="res://VTT/VTT.gd" id="1_rycox"]
 [ext_resource type="Texture2D" uid="uid://brrwr4b0dvnjx" path="res://ressource/vtt_default.png" id="2_m1ax7"]
 [ext_resource type="Script" path="res://VTT/Camera2D.gd" id="3_5x20n"]
+[ext_resource type="Script" path="res://VTT/AdminBoxContainer.gd" id="4_lniog"]
 [ext_resource type="Texture2D" uid="uid://cy4oyge1aeau7" path="res://ressource/dice_button.png" id="4_yafsr"]
 [ext_resource type="Texture2D" uid="uid://btodpke13nud0" path="res://ressource/dice_button_hover.png" id="5_cbl1j"]
+[ext_resource type="Script" path="res://VTT/LogUI.gd" id="6_bvmgm"]
 [ext_resource type="Script" path="res://VTT/DiceLayer.gd" id="6_fcyrp"]
 [ext_resource type="FontFile" uid="uid://cgvak7jfhsubb" path="res://ressource/FiraCode-Retina.ttf" id="6_p4i2g"]
+[ext_resource type="Script" path="res://VTT/LogText.gd" id="7_nhxbc"]
 [ext_resource type="Script" path="res://VTT/NBLine.gd" id="8_7gh5n"]
 [ext_resource type="Script" path="res://VTT/ValLine.gd" id="9_v3y5j"]
 
@@ -44,52 +47,6 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="UI" type="CanvasLayer" parent="."]
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
-visible = false
-z_index = 99
-z_as_relative = false
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 218.0
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/HBoxContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/HBoxContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-text = "Paramètres :"
-horizontal_alignment = 1
-
-[node name="Importmap" type="Button" parent="UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Importer une carte"
-
-[node name="NativeFileDialog" type="NativeFileDialog" parent="UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap"]
-title = "Open a File"
-file_mode = 0
-access = 2
-
-[node name="Hide UI" type="Button" parent="UI/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 22
-text = " < "
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 anchors_preset = 3
@@ -150,6 +107,159 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 shortcut = SubResource("Shortcut_hmrt3")
 text = "Fermer"
+
+[node name="LogUI" type="VBoxContainer" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 197.0
+grow_horizontal = 2
+mouse_force_pass_scroll_events = false
+theme_override_constants/separation = 0
+script = ExtResource("6_bvmgm")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/LogUI"]
+layout_mode = 2
+
+[node name="LogText" type="RichTextLabel" parent="UI/LogUI/PanelContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+scroll_following = true
+script = ExtResource("7_nhxbc")
+
+[node name="HideUI" type="Button" parent="UI/LogUI"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 23
+text = "  ▼  "
+
+[node name="AdminBoxContainer" type="HBoxContainer" parent="UI"]
+visible = false
+z_index = 99
+z_as_relative = false
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 218.0
+grow_vertical = 2
+theme_override_constants/separation = 0
+script = ExtResource("4_lniog")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/AdminBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/AdminBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Paramètres :"
+horizontal_alignment = 1
+
+[node name="Importmap" type="Button" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Importer une carte"
+
+[node name="NativeFileDialog" type="NativeFileDialog" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap"]
+title = "Open a File"
+file_mode = 0
+access = 2
+
+[node name="AdminLaunchDice" type="Button" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lancer des dés"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="VBoxNB" type="VBoxContainer" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -1
+
+[node name="NBLabel" type="Label" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Nombre de dé"
+horizontal_alignment = 1
+
+[node name="NBDice" type="HBoxContainer" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB"]
+layout_mode = 2
+alignment = 1
+
+[node name="MinusNB" type="Button" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB/NBDice"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p4i2g")
+text = " - "
+
+[node name="NBLine" type="LineEdit" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB/NBDice"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "1"
+alignment = 1
+max_length = 4
+context_menu_enabled = false
+script = ExtResource("8_7gh5n")
+
+[node name="PlusNB" type="Button" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB/NBDice"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p4i2g")
+text = " + "
+
+[node name="VBoxVal" type="VBoxContainer" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -1
+
+[node name="NBVal" type="Label" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Valeur max dé"
+horizontal_alignment = 1
+
+[node name="MaxValDice" type="HBoxContainer" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal"]
+layout_mode = 2
+alignment = 1
+
+[node name="MinusVal" type="Button" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal/MaxValDice"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p4i2g")
+text = " - "
+
+[node name="ValLine" type="LineEdit" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal/MaxValDice"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "1"
+alignment = 1
+max_length = 4
+context_menu_enabled = false
+script = ExtResource("9_v3y5j")
+
+[node name="PlusVal" type="Button" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal/MaxValDice"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_p4i2g")
+text = " + "
+
+[node name="AdminValidateDice" type="Button" parent="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+shortcut = SubResource("Shortcut_hmrt3")
+text = "Valider"
+
+[node name="Hide UI" type="Button" parent="UI/AdminBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 22
+text = " < "
 
 [node name="DiceLayer" type="CanvasLayer" parent="UI"]
 visible = false
@@ -259,11 +369,23 @@ layout_mode = 2
 shortcut = SubResource("Shortcut_hmrt3")
 text = "Valider"
 
-[connection signal="pressed" from="UI/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap" to="." method="_on_importmap_pressed"]
-[connection signal="pressed" from="UI/HBoxContainer/Hide UI" to="." method="_on_hide_ui_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/VBoxContainer/LaunchDiceButton" to="." method="_on_launch_dice_button_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/VBoxContainer/ResetViewport" to="Camera2D" method="_on_reset_viewport_pressed"]
 [connection signal="pressed" from="UI/PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="gui_input" from="UI/LogUI/PanelContainer/LogText" to="UI/LogUI/PanelContainer/LogText" method="_on_gui_input"]
+[connection signal="pressed" from="UI/LogUI/HideUI" to="UI/LogUI" method="_on_button_pressed"]
+[connection signal="pressed" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap" to="." method="_on_importmap_pressed"]
+[connection signal="pressed" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/AdminLaunchDice" to="." method="_on_admin_launch_dice_pressed"]
+[connection signal="pressed" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB/NBDice/MinusNB" to="UI/AdminBoxContainer" method="_on_minus_nb_pressed"]
+[connection signal="focus_exited" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB/NBDice/NBLine" to="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB/NBDice/NBLine" method="_on_focus_exited"]
+[connection signal="text_changed" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB/NBDice/NBLine" to="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB/NBDice/NBLine" method="_on_text_changed"]
+[connection signal="pressed" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB/NBDice/PlusNB" to="UI/AdminBoxContainer" method="_on_plus_nb_pressed"]
+[connection signal="pressed" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal/MaxValDice/MinusVal" to="UI/AdminBoxContainer" method="_on_minus_val_pressed"]
+[connection signal="focus_exited" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine" to="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine" method="_on_focus_exited"]
+[connection signal="text_changed" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine" to="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine" method="_on_text_changed"]
+[connection signal="pressed" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal/MaxValDice/PlusVal" to="UI/AdminBoxContainer" method="_on_plus_val_pressed"]
+[connection signal="pressed" from="UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/AdminValidateDice" to="." method="_on_admin_validate_dice_pressed"]
+[connection signal="pressed" from="UI/AdminBoxContainer/Hide UI" to="." method="_on_hide_ui_pressed"]
 [connection signal="pressed" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/MinusNB" to="UI/DiceLayer" method="_on_minus_nb_pressed"]
 [connection signal="focus_exited" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/NBLine" to="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/NBLine" method="_on_focus_exited"]
 [connection signal="text_changed" from="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/NBLine" to="UI/DiceLayer/MainMenu/MarginContainer/VBoxContainer/VBoxNB/NBDice/NBLine" method="_on_text_changed"]

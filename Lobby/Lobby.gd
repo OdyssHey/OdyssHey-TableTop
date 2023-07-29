@@ -46,6 +46,7 @@ func register_player(info):
 @rpc("call_local")
 func update_list_player(list):
 	var List = str_to_var(list)
+	Global.liste_joueur = (List)
 	for elem in $LobbyLayer/MainMenu/MarginContainer/VBoxContainer/VBoxContainer.get_children():
 		elem.queue_free()
 	for elem in List:

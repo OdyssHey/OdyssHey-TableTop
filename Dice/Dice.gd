@@ -8,6 +8,7 @@ func _ready():
 	
 var nb = []
 
+
 func launch_dice(val:int)  -> int:
 	#NB de frame 5
 	
