@@ -52,10 +52,12 @@ func _notification(what):
 		
 		
 func _is_windows():
-	return (OS.get_name() == "Windows")
+	var OSName = OS.get_name()
+	return (OSName == "Windows" or OSName == "UWP")
 	
 func _is_linux():
-	return (OS.get_name() == "Linux")
+	var OSName = OS.get_name()
+	return (OSName == "Linux" or OSName == "FreeBSD" or OSName == "NetBSD" or OSName == "OpenBSD" or OSName == "BSD")
 
 func _setup_config():
 	var configFile = FileAccess.open("user://config.json",FileAccess.READ)

@@ -104,3 +104,6 @@ func launch_anim():
 		$M2.text = str(int(visual_nb/100))
 		$M3.text = str(int(visual_nb/10))
 		$M4.text = str(visual_nb%10)
+
+func adminDice(val:int):
+	pass

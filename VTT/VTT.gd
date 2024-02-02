@@ -6,7 +6,7 @@ func _ready():
 	$UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap/NativeFileDialog.add_filter("*.png, *.jfif, *.jpeg, *.jpg","png, jfif, jpeg, jpg")
 	$UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Importmap/NativeFileDialog.connect("file_selected", on_file_selected)
 	if multiplayer.is_server():
-		Global.MJ_rand = int(Time.get_datetime_string_from_system(false,true))
+		Global.MJ_rand.seed = int(Time.get_datetime_string_from_system(false,true))
 		$UI/AdminBoxContainer.show()
 
 
@@ -127,5 +127,11 @@ func _process(_delta):
 
 
 func _on_admin_validate_dice_pressed():
-	
+	$UI/LogUI/PanelContainer/LogText.text += Global.pseudo + " a lancé(e) un/des dé(s) caché(s) : "
+	var val = 0
+	for i in range(int($UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxNB/NBDice/NBLine.text)):
+		var elem:int = Global.MJ_rand.randi_range(1, $UI/AdminBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VBoxVal/MaxValDice/ValLine.get_text().to_int())
+		$UI/LogUI/PanelContainer/LogText.text += str(elem) + ", "
+		val += elem
+	$UI/LogUI/PanelContainer/LogText.text += "pour un total de " + str(val) + "!\n"
 	pass # Replace with function body.

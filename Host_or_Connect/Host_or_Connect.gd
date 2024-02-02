@@ -115,14 +115,15 @@ func _http_request_completed(result, _response_code, _headers, _body):
 	if Global._is_windows():
 		var ratholeEXE = FileAccess.open("user://rathole_odysshey.exe", FileAccess.WRITE)
 		ratholeEXE.store_buffer(unzip_rathole.read_file("rathole.exe"))
-		Global.ratholePID = OS.create_process("powershell",["-Command","cd \\\"" + OS.get_user_data_dir() + "\\\";"+"./rathole_odysshey.exe client.toml"],true)
+		ratholeEXE.close()
+		# Global.ratholePID = OS.create_process("powershell",["-Command","cd \\\"" + OS.get_user_data_dir() + "\\\";"+"./rathole_odysshey.exe client.toml"],true)
+		Global.ratholePID = OS.create_process(OS.get_user_data_dir()+"/rathole_odysshey", [OS.get_user_data_dir()+"/client.toml"], true)
 	elif Global._is_linux():
 		var ratholeEXE = FileAccess.open("user://rathole_odysshey", FileAccess.WRITE)
 		ratholeEXE.store_buffer(unzip_rathole.read_file("rathole"))
 		ratholeEXE.close()
 		OS.execute("bash",["-c","chmod a+rwx " + OS.get_user_data_dir()+"/rathole_odysshey"])
-		Global.ratholePID = OS.create_process("bash",["-c",OS.get_user_data_dir()+"/rathole_odysshey " + OS.get_user_data_dir()+"/client.toml"], true)
-		print(Global.ratholePID)
+		Global.ratholePID = OS.create_process(OS.get_user_data_dir()+"/rathole_odysshey", [OS.get_user_data_dir()+"/client.toml"], true)
 	else:
 		OS.alert("Votre systeme n'est pas supporter !")
 		get_tree().quit()
